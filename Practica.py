@@ -323,8 +323,18 @@ positivos y 5 negativos en ese orden.
     c) Generar otro arreglo con los múltiplos de 4. Si no los hubiese mostrar
     cartel aclaratorio.
     d) Mostrar cuántos pares y cuántos múltiplos de 3 hay.
-"""
+
 from random import random, randint
+
+
+def promedio_arreglo_neg(arreglo):
+    promedio = 0
+    for num in arreglo:
+        if num < 0:
+            promedio += num/len(arreglo)
+    return round(promedio, 2)
+
+
 def carga_arreglo(cant_num_vector):
     arreglo = []
     contador_pos = 0
@@ -340,4 +350,70 @@ def carga_arreglo(cant_num_vector):
     print(arreglo)
     return arreglo
 
+
 A = carga_arreglo(10)
+# a
+print('Promedio de numeros negativos:', promedio_arreglo_neg(A))
+# b
+print('Arreglo ordenado: ', sorted(A))
+# c
+
+
+def arreglo_mult_4(arreglo):
+    arreglo_mult_4 = []
+    for num in arreglo:
+        if num % 4 == 0:
+            arreglo_mult_4.append(num)
+    if len(arreglo_mult_4) == 0:
+        print('No tiene multiplos de 4')
+    return arreglo_mult_4
+
+
+print('Arreglo con multiplos de 4:', arreglo_mult_4(A))
+#d
+def contador(arreglo):
+    pares = mult3 = 0
+    for num in arreglo:
+        if num % 2 == 0:
+            pares += 1
+        elif num % 3 == 0:
+            mult3 += 1
+    print('Tiene', pares, 'numeros pares y', mult3, 'numeros multiplos de 3')
+
+contador(A)
+
+18. Cargar un arreglo A de números enteros con los números que sean pares entre los
+primeros 15 ingresados. Mostrarlo.Generar un segundo arreglo B con los elementos de A que sean
+menores que elpromedio de A. Mostrarlo.Desplazar el arreglo A desde la posición donde se encuentre
+el primer número mayor al promedio una posición hacia atrás. Mostrarlo.
+Datos ingresados:16,64,2,1,11,1,5,6,6,10,4,14,7,8,33
+Arreglo A
+Promedio=14,44
+Arreglo B
+2 6 6 10 4 14 8
+Arreglo A
+"""
+from random import random, randint
+
+def carga_arreglo(cant_num_vector):
+    arreglo = []
+    while len(arreglo) < cant_num_vector:
+        numero = randint(0, 100)
+        if numero % 2 == 0:
+            arreglo.append(numero)
+    print(arreglo)
+    return arreglo
+
+def promedio_arreglo(arreglo):
+    promedio = 0
+    for num in arreglo:
+        promedio += num/len(arreglo)
+    return round(promedio, 2)    
+
+def desplazar_arreglo_prom(arreglo):
+    for num in arreglo:
+        if num > promedio_arreglo(arreglo):
+            inde
+
+A = carga_arreglo(15)
+print(promedio_arreglo(A))
