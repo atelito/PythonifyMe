@@ -384,24 +384,59 @@ contador(A)
 
 18. Cargar un arreglo A de números enteros con los números que sean pares entre los
 primeros 15 ingresados. Mostrarlo.Generar un segundo arreglo B con los elementos de A que sean
-menores que elpromedio de A. Mostrarlo.Desplazar el arreglo A desde la posición donde se encuentre
+menores que el promedio de A. Mostrarlo.Desplazar el arreglo A desde la posición donde se encuentre
 el primer número mayor al promedio una posición hacia atrás. Mostrarlo.
 Datos ingresados:16,64,2,1,11,1,5,6,6,10,4,14,7,8,33
-Arreglo A
+Arreglo A = [16, 64, 2, 6, 6, 10, 4 14, 8]
 Promedio=14,44
 Arreglo B
 2 6 6 10 4 14 8
 Arreglo A
-"""
+
 from random import random, randint
+
+def numero_par(min, max):
+    num_par = 0
+    if max < min:
+        aux = min
+        min = max
+        max = aux
+    while num_par == 0:
+        numero = randint(min, max)
+        if numero % 2 == 0:
+            num_par = numero
+    return num_par
+
+def numero_impar(min, max):
+    num_par = 0
+    if max < min:
+        aux = min
+        min = max
+        max = aux
+    while num_par == 0:
+        numero = randint(min, max)
+        if numero % 2 != 0:
+            num_par = numero
+    return num_par
+
+def carga_arreglo_par(cant_num_vector, min, max):
+    arreglo = []
+    while len(arreglo) < cant_num_vector:
+        arreglo.append(numero_par(min, max))
+    return arreglo
+
+def carga_arreglo_prom(arreglo):
+    arreglo_min_prom = []
+    for num in arreglo:
+        if num < promedio_arreglo(arreglo):
+            arreglo_min_prom.append(num)
+    return arreglo_min_prom
 
 def carga_arreglo(cant_num_vector):
     arreglo = []
     while len(arreglo) < cant_num_vector:
         numero = randint(0, 100)
-        if numero % 2 == 0:
-            arreglo.append(numero)
-    print(arreglo)
+        arreglo.append(numero)
     return arreglo
 
 def promedio_arreglo(arreglo):
@@ -411,9 +446,160 @@ def promedio_arreglo(arreglo):
     return round(promedio, 2)    
 
 def desplazar_arreglo_prom(arreglo):
-    for num in arreglo:
-        if num > promedio_arreglo(arreglo):
-            inde
+    for i in range(0, len(arreglo)):
+        if arreglo[i] > promedio_arreglo(arreglo):
+            arreglo.pop(i-1)
+            break
+    return arreglo
 
-A = carga_arreglo(15)
-print(promedio_arreglo(A))
+A = carga_arreglo_par(15, -100, 200)
+print('Arreglo A:', A)
+print('El promedio del arreglo es:', promedio_arreglo(A))
+B = carga_arreglo_prom(A)
+print('Arreglo numeros menores al promedio:',B)
+C = desplazar_arreglo_prom(A)
+print(C)
+
+19. Ingresar 12 números, cargar un vector, calcular y mostrar:
+    a) El máximo de los números múltiplos de 2 y su posición.
+    b) El mínimo de los números impares y su posición.
+
+    
+
+from random import randint
+
+def promedio_arreglo(arreglo):
+    promedio = 0
+    for num in arreglo:
+        promedio += num/len(arreglo)
+    return round(promedio, 2)    
+
+def carga_arreglo(cant_num_vector):
+    arreglo = []
+    while len(arreglo) < cant_num_vector:
+        numero = randint(0, 100)
+        arreglo.append(numero)
+    return arreglo
+
+def es_par(num):
+    if num % 2 == 0:
+        return True
+    return False
+
+def es_impar(num):
+    if num % 2 != 0:
+        return True
+    return False
+
+def numero_impar(min, max):
+    num_par = 0
+    if max < min:
+        aux = min
+        min = max
+        max = aux
+    while num_par == 0:
+        numero = randint(min, max)
+        if numero % 2 != 0:
+            num_par = numero
+    return num_par
+
+def pos_max_par(arreglo):
+    num_par_max = 0
+    for num in arreglo:
+        if es_par(num):
+            if num > num_par_max:
+                num_par_max = num
+    return arreglo.index(num_par_max)+1
+
+def pos_min_impar(arreglo):
+    num_impar_min = 101
+    for num in arreglo:
+        if es_impar(num):
+            if num < num_impar_min:
+                num_impar_min = num
+    return arreglo.index(num_impar_min)+1
+
+A = carga_arreglo(12)
+print('Arreglo A:',A)
+print('La posicion del maximo numero par en el arreglo es: ', pos_max_par(A))
+print('La posicion del minimo numero impar en el arreglo es: ', pos_min_impar(A))
+
+20. Ingresar 10 números, cargar un arreglo donde los números pares estén en las posiciones pares
+y los números impares en las posiciones impares.Calcular y mostrar:
+    a) El promedio de los números múltiplos de 5 que se encuentren las posiciones impares
+    y la suma de las posiciones pares (en una función).
+    b) Cuántas veces aparece un número múltiplo de 4 en las posiciones pares
+    c) Contar en cuántas parejas de números el primero es menor que el segundo
+
+Ejemplo:Ingresamos:8 3 5 9 15 10 12 14 1 2. Cargamos el vector:8 3 10 5 12 9 14 15 2 1
+    a)Promedio: (5+15)/2 Suma=8+10+12+14+2
+    b)Sólo 2 veces
+    c)4 parejas de números cumplen la condición
+
+
+from random import randint
+
+def es_par(num):
+    if num % 2 == 0:
+        return True
+    return False
+
+def es_impar(num):
+    if num % 2 != 0:
+        return True
+    return False
+
+def promedio_mult_5_impar(arreglo):
+    promedio = contador = 0
+    for i in range(0, len(arreglo)):
+        if es_impar(i+1) and arreglo[i] % 5 == 0:
+            contador += 1
+            promedio += arreglo[i]
+    if contador != 0:
+        return round(promedio/contador, 2)
+    return '---'
+
+def promedio_mult_4_cant(arreglo):
+    contador = 0
+    for i in range(0, len(arreglo)):
+        if es_par(i+1) and arreglo[i] % 4 == 0:
+            contador += 1
+    return contador
+
+def promedio_arreglo(arreglo):
+    promedio = 0
+    for num in arreglo:
+        promedio += num/len(arreglo)
+    return round(promedio, 2)    
+
+def carga_arreglo(cant_num_vector):
+    arreglo = []
+    contador_pos = 0
+    contador_neg = 5
+    for i in range(0, cant_num_vector):
+        while True:
+            numero = randint(-100, 100)
+            if es_par(numero) and es_par(i+1):
+                arreglo.append(numero)
+                break
+            elif es_impar(numero) and es_impar(i+1):
+                arreglo.append(numero)
+                break
+    print(arreglo)
+    return arreglo
+
+def contador(arreglo):
+    mayor = 0
+    for i in range(0, len(arreglo), 2):
+        if arreglo[i] < arreglo[i+1]:
+            mayor += 1
+    print('Tiene', mayor, 'parejas de números donde el primero es menor que el segundo')
+
+A = carga_arreglo(10)
+# a
+print('Promedio de numeros multiplos de 5 en posiciones impares:', promedio_mult_5_impar(A))
+# b
+print('Promedio de numeros multiplos de 4 en posiciones pares:', promedio_mult_4_cant(A))
+# c
+contador(A)
+"""
