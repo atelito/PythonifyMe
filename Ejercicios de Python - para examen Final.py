@@ -65,7 +65,7 @@ def carga_string_no_vacio():
 def carga_paciente():
     arreglo = []
     #n = int(input('Ingrese cantidad de pacientes a atender'))
-    for i in range(0, 2):  # n
+    for i in range(0, 10):  # n
         #paciente = 'paciente_'
         #paciente = paciente + str(i)
         print('Paciente numero', i+1)
