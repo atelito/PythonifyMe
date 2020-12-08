@@ -604,17 +604,4 @@ print('Promedio de numeros multiplos de 5 en posiciones impares:', promedio_mult
 print('Promedio de numeros multiplos de 4 en posiciones pares:', promedio_mult_4_cant(A))
 # c
 contador(A)
-
-EJERCICIOS FINAL
-Un oftalmólogo le gusta hacer estadísticas de sus pacientes al final del día.
-Guarda los siguientes datos de cada paciente:
-·   	Obra social (1: Osde, 2: Swiss, 3: Italiano, 4: Otros)
-·   	Nombre
-·   	Edad
-Te pide que le hagas un programa que le permita:
-1.    Ingresar los datos de los 10 pacientes que atiende en el día.
-        Mostrarlos con los nombres de los pacientes en mayúscula y los nombres de las obras sociales en minúscula.
-2.    Informe la cantidad de pacientes mayores a 21 años y qué porcentaje representa del total de los pacientes atendidos.
-3.    Según el total de pacientes, calcular el porcentaje de pacientes según la obra social
-4.    Cuál es la obra social de la que se atendió más pacientes. Mostrar su nombre.
 """

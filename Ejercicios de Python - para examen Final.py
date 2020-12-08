@@ -2,7 +2,97 @@
 ##########################################################################################
 ################################### EJERCICIO 1 ##########################################
 ##########################################################################################
+"""
+Una barrio privado posee una lista de los inmuebles que tiene en alquiler con los siguientes datos:  
+    ●Nro. Lote de la casa
+    ●Nombre del titular
+    ●Cantidad de AMBIENTES (1 –2 –3 –4)
+    ●Precio del alquiler anual
+1)Diseñar un programa que permita cargar toda la lista en cuatro arreglos:
+LOTES, TITULARES, AMBIENTES y ALQUILER. La carga finaliza con lote = 0.
+2)Listar los datos en cuatro columnas LOTE -TITULAR -AMBIENTES -ALQUILER
+3)Calcular el precio promedio de las casas del barrio privado.
+4)Determinar de cuántos AMBIENTES tiene el alquiler más caro
+"""
+from random import randint
 
+def promedio_arreglo(arreglo):
+    promedio = 0
+    for num in arreglo:
+        promedio += num/len(arreglo)
+    return round(promedio, 2)    
+
+def carga_num():
+    num = 0
+    while True: 
+        try:
+            num = int(input(''))
+            return num
+        except ValueError:
+            print('ATENCIÓN: Debe ingresar un número entero.')
+
+def indice_max(arreglo):
+    i = arreglo.index(max(arreglo))
+    return i
+
+def ambientes_mas_caro(arreglo, indice):
+    cant_amb = arreglo[indice]
+    print('La cantidad de ambientes del alquiler mas caro es:', cant_amb)
+                
+def carga_string_no_vacio():
+    cadena = ''
+    while True:
+        try:
+            cadena = input('')
+            if cadena != '':
+                return cadena
+            else:
+                print('ATENCIÓN: Debe ingresar un dato no vacio')
+        except ValueError:
+            print('ATENCIÓN: Debe ingresar un dato no vacio')
+
+def carga_lote():
+    arreglo = []
+    numero = randint(1, 100)
+    arreglo.append(numero)
+    return arreglo
+
+def completarConEspacios(cadena):
+        cantidadEspacios = 20 - len(cadena)
+        for i in range(0, cantidadEspacios):
+            cadena += " "
+        return cadena
+
+LOTES = []
+TITULARES = []
+AMBIENTES = []
+ALQUILERES = []
+contador = 0
+while True:
+    nro_lote = ambiente = 0
+    print('Ingrese numero de lote. "0" para finalizar')
+    nro_lote = carga_num()
+    if nro_lote == 0 and contador != 0: break
+    LOTES.append(nro_lote)
+    print('Ingrese Titular')
+    TITULARES.append(carga_string_no_vacio())
+    print('Ingrese Cantidad de AMBIENTES')
+    while True:
+        ambiente = carga_num()
+        if ambiente == 1 or ambiente == 2 or ambiente == 3 or ambiente == 4:
+            AMBIENTES.append(ambiente)
+            break
+        else:
+            print('ATENCION: Debe ingresar 1, 2, 3, o 4 AMBIENTES')
+    print('Ingrese $$$ Alquiler')
+    ALQUILERES.append(carga_num())
+    contador += 1
+
+print(completarConEspacios('LOTES'), completarConEspacios('TITULARES'), completarConEspacios('AMBIENTES'),completarConEspacios('ALQUILER'))
+for i in range(0, contador):
+    print(completarConEspacios(str(LOTES[i])), completarConEspacios(TITULARES[i]), completarConEspacios(str(AMBIENTES[i])), completarConEspacios(str(ALQUILERES[i])), )
+print('El promedio de ALQUILERES en el barrio es:', promedio_arreglo(ALQUILERES))
+ambientes_mas_caro(AMBIENTES, indice_max(ALQUILERES))
 
 ##########################################################################################
 ################################### EJERCICIO 2 ##########################################
