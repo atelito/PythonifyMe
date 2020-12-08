@@ -13,7 +13,7 @@ LOTES, TITULARES, AMBIENTES y ALQUILER. La carga finaliza con lote = 0.
 2)Listar los datos en cuatro columnas LOTE -TITULAR -AMBIENTES -ALQUILER
 3)Calcular el precio promedio de las casas del barrio privado.
 4)Determinar de cuántos AMBIENTES tiene el alquiler más caro
-"""
+
 from random import randint
 
 def promedio_arreglo(arreglo):
@@ -93,12 +93,119 @@ for i in range(0, contador):
     print(completarConEspacios(str(LOTES[i])), completarConEspacios(TITULARES[i]), completarConEspacios(str(AMBIENTES[i])), completarConEspacios(str(ALQUILERES[i])), )
 print('El promedio de ALQUILERES en el barrio es:', promedio_arreglo(ALQUILERES))
 ambientes_mas_caro(AMBIENTES, indice_max(ALQUILERES))
-
+"""
 ##########################################################################################
 ################################### EJERCICIO 2 ##########################################
 ##########################################################################################
+"""
+Una empresa de Viajes de Egresados guarda la información de los alumnos que quieren viajar:
+- nombre y apellido - sexo - Destino: Bariloche - Porto Seguro.
+Ingresar los datos de todos los viajeros, hasta que no se quiera cargar más viajeros (ingresan “fin” en el nombre). Se pide:
+a) Separar mujeres y varones: se pide guardar en un arreglo el nombre de las mujeres y en otro el de los hombres.
+b) Listar ambos grupos de datos ordenados alfabéticamente para pasárselo a la empresa de micros. Agregar el nùmero de viajero (empezando en 1 en adelante). Si alguno de los vectores quedará vacío, Indicarlo con un mensaje por pantalla.
+c) Mostrar el Porcentaje de Hombres y Mujeres: 
+d) Calcular e imprimir los porcentajes de alumnos que eligieron cada destino.
+e) Decir cual es el destino con mayor cantidad de viajeros
 
 
+class Viajero():
+    nombre = ''
+    apellido = ''
+    sexo = ''
+    destino = ''
+
+    def __init__(self, nombre, apellido, sexo, destino):
+        self.nombre = nombre.capitalize()
+        self.apellido = apellido.capitalize()
+        self.sexo = sexo.upper()
+        self.destino = destino.capitalize()
+        
+    def __gt__(self, viajero):
+        return ((self.apellido > viajero.apellido) and (self.nombre > viajero.nombre))
+    
+    def __str__(self):
+        return f'{self.apellido}, {self.nombre}'
+
+def porcentage_h_m(viajeros):
+    cant_h = cant_m = 0
+    for viajero in viajeros:
+        if viajero.sexo.upper() == 'H':
+            cant_h += 1
+        elif viajero.sexo.upper() == 'M':
+            cant_m += 1
+    print(f'Porcentaje de viajeros \nHombres: {round(cant_h/len(viajeros)*100, 2)}%,\nMujeres: {round(cant_m/len(viajeros)*100, 2)}%')
+
+def porcentage_destino(viajeros):
+    cant_B = cant_P = 0
+    for viajero in viajeros:
+        if viajero.destino.upper() == 'B':
+            cant_B += 1
+        elif viajero.destino.upper() == 'P':
+            cant_P += 1
+    print(f'Porcentaje de viajeros \nBariloche: {round(cant_B/len(viajeros)*100, 2)}%,\nPorto Seguro: {round(cant_P/len(viajeros)*100, 2)}%')
+    if cant_B > cant_P:
+        print('El destino con mayor cantidad de viajeros es: "Bariloche"')
+    else:
+        print('El destino con mayor cantidad de viajeros es: "Porto Seguro"')
+def carga_string_no_vacio():
+    cadena = ''
+    while True:
+        try:
+            cadena = input('')
+            if cadena != '':
+                return cadena
+            else:
+                print('ATENCIÓN: Debe ingresar un dato no vacio')
+        except ValueError:
+            print('ATENCIÓN: Debe ingresar un dato no vacio')
+
+def carga_num():
+    num = 0
+    while True: 
+        try:
+            num = int(input(''))
+            return num
+        except ValueError:
+            print('ATENCIÓN: Debe ingresar un número entero.')
+
+def carga_viajeros():
+    PASAJEROS = []
+    while True:
+        sexo = destino = ''
+        print('Ingrese Nombre. Para salir ingrese "Fin"')
+        nombre = carga_string_no_vacio()
+        if nombre.lower() == 'fin':
+            break
+        print('Ingrese Apellido')
+        apellido = carga_string_no_vacio()
+        print('Ingrese Sexo [H/M]')
+        while True:
+            sexo = carga_string_no_vacio()
+            if sexo.upper() == 'M' or sexo.upper() == 'H':
+                break
+            else:
+                print('ATENCIÓN: Debe ingresar "H" o "M"')
+        print('Ingrese Destino [Bariloche - "B" / Porto Seguro - "P"]')
+        while True:
+            destino = carga_string_no_vacio()
+            if destino.upper() == 'B' or destino.upper() == 'P':
+                break
+            else:
+                print('ATENCIÓN: Debe ingresar "B" o "P"')
+        viajero = Viajero(nombre, apellido, sexo, destino)
+        PASAJEROS.append(viajero)
+    return PASAJEROS
+def imprimir_viajeros(viajeros):
+    ordenada = sorted(pasajeros)
+    for viajero in ordenada:
+        print(viajero)
+
+
+pasajeros = carga_viajeros()
+porcentage_h_m(pasajeros)
+imprimir_viajeros(pasajeros)
+porcentage_destino(pasajeros)
+"""
 ##########################################################################################
 ################################### EJERCICIO 3 ##########################################
 ##########################################################################################
@@ -192,7 +299,7 @@ def porcentage_pacientes_obra(pacientes):
             contador_italiano += 1
         elif paciente.obra_social == 'otros':
             contador_otros += 1
-    print(f'Porcentaje de pacientes con OSDE: {round(contador_osde/len(pacientes)*100, 2)}%, SWISS: {round(contador_swiss/len(pacientes)*100, 2)}%, ITALIANO: {round(contador_italiano/len(pacientes)*100, 2)}%, OTROS: {round(contador_otros/len(pacientes)*100, 2)}%')
+    print(f'Porcentaje de pacientes con \nOSDE: {round(contador_osde/len(pacientes)*100, 2)}%, \nSWISS: {round(contador_swiss/len(pacientes)*100, 2)}%, \nITALIANO: {round(contador_italiano/len(pacientes)*100, 2)}%, \nOTROS: {round(contador_otros/len(pacientes)*100, 2)}%')
 
 def cantidad_pacientes_obra(pacientes):
     contador_osde = contador_swiss = contador_italiano = contador_otros = 0
@@ -225,11 +332,26 @@ cantidad_pacientes_obra(pacientes)
 ##########################################################################################
 ################################### EJERCICIO 4 ##########################################
 ##########################################################################################
+"""
+Una concesionaria, necesita registrar “cada” venta realizada, para lo que se ingresa:
+● Marca: 1- AA, 2-BB, 3-CC, 4-DD
+● Tipo: 1- Auto, 2- Pïck Up, 3 – SUV, 4- Motocicleta, 5-Deportivo
+● Precio (En pesos)
+El ingreso termina con marca = 0
+A. Guardar en un nuevo arreglo los vehículos con valor superior a $300.000 (inclusive) y guardar en otro los menores a $200.000.
+B. Decir de qué marca fue el vehículo más costoso y de qué marca fue la motocicleta mas economica.
+C. Calcular cuántos vehículos se vendieron por tipo y determinar cuál es el más vendido.
+D. Listar los los vehículos con valor superior a $500.000.
+"""
+
 
 ##########################################################################################
 ################################### EJERCICIO 5 ##########################################
 ##########################################################################################
+"""
+Se ingresan la cantidad de kilos vendidos de chocolate amargo y semiamargo (dos vectores) a lo largo de el mes de junio (30 días). El valor del kilo de chocolate amargo es $3500 y el valor del kilo del chocolate semiamargo es de $2400. Calcular y mostrar:
+a) El día del mes donde se vendieron más kilos de chocolate amargo y el día del mes donde se vendieron la menor cantidad de chocolate semiamargo.
+b) Insertar la recaudación del mes al comienzo del arreglo en cada tipo de chocolate
+c) Eliminar las ventas menores a 3 kilos de cada tipo de chocolate.
 
-##########################################################################################
-################################### EJERCICIO 6 ##########################################
-##########################################################################################
+"""
