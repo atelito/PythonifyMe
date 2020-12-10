@@ -333,15 +333,13 @@ cantidad_pacientes_obra(pacientes)
 ################################### EJERCICIO 4 ##########################################
 ##########################################################################################
 """
-Una concesionaria, necesita registrar “cada” venta realizada, para lo que se ingresa:
-● Marca: 1- AA, 2-BB, 3-CC, 4-DD
-● Tipo: 1- Auto, 2- Pïck Up, 3 – SUV, 4- Motocicleta, 5-Deportivo
-● Precio (En pesos)
-El ingreso termina con marca = 0
-A. Guardar en un nuevo arreglo los vehículos con valor superior a $300.000 (inclusive) y guardar en otro los menores a $200.000.
-B. Decir de qué marca fue el vehículo más costoso y de qué marca fue la motocicleta mas economica.
-C. Calcular cuántos vehículos se vendieron por tipo y determinar cuál es el más vendido.
-D. Listar los los vehículos con valor superior a $500.000.
+Pedir el peso, la altura y el sexo, de un estudiante.
+Determinar la cantidad de vitaminas que debe consumir ese estudiante, en base al siguiente criterio:
+“Si son varones, y su estatura es mayor a 1.60, y su peso es mayor o igual a 150 lb, su dosis, será:20% de la estatura
+    y 80% de su peso. De lo contrario, la dosis será la siguiente: 30% de la estatura y 70% de su peso.
+    Si son mujeres, y su estatura es mayor de a 1.50 m su peso es mayor o  igual a 130 lb, su dosis será: 25%
+    de la estatura y 75% de su peso.De lo contrario, la dosis  será: 35% de la estatura y 65% de su peso.
+    La dosis debe ser expresada en gramos.
 """
 
 
