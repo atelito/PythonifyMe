@@ -604,4 +604,224 @@ print('Promedio de numeros multiplos de 5 en posiciones impares:', promedio_mult
 print('Promedio de numeros multiplos de 4 en posiciones pares:', promedio_mult_4_cant(A))
 # c
 contador(A)
+
+21. Implementar un algoritmo que, dado un número entero 𝑛, permita calcular su
+factorial.
+
+def factorial(n): return n * factorial(n-1) if n > 1 else 1
+
+print(factorial(6))
+
+22. Escribir un programa que le pida una palabra al usuario, para luego imprimirla
+1000 veces, en una única línea, con espacios intermedios.
+Ayuda: Investigar acerca del parámetro end de la función print.
+
+
+def palabra_n_veces1(palabra, n):
+    for i in range(0, n):
+        print(palabra, end=" ")
+        
+def palabra_n_veces2(palabra, n):
+    print((palabra+" ")*n)
+
+palabra_n_veces2('Atel', 1000)
+
+
+23. Escribir un programa que imprima por pantalla todas las fichas de dominó, de
+una por línea y sin repetir.
+
+def imprimir_fichas():
+    # imprime fichas de domino
+    contador = 0
+    for izq in range(0, 7):
+        for der in range (0, izq+1):
+            print(f'[{izq}] | [{der}]')
+
+imprimir_fichas()
+
+
+24. Escribir dos funciones que permitan calcular:
+    a) La duración en segundos de un intervalo dado en horas, minutos y segundos.
+    b) La duración en horas, minutos y segundos de un intervalo dado en segundos.
+
+def seg_a_h_m_s(segundos):
+    s = segundos
+    h = m = 0
+    while s >= 60:
+        if (s // 3600) > 0:
+            h += 1
+            s -= 3600
+            if s // 60 > 0:
+                m += 1
+                s -= 60
+        elif (s // 60) > 0:
+                m += 1
+                s -= 60
+    return h, m, s
+
+def h_m_s_a_seg(h, m, s):
+    segundos = h *3600 + m * 60 + s
+    return segundos
+
+x, y, z = seg_a_h_m_s(4567)
+print(f'Horas: {x}, Minutos: {y}, Segundos: {z}')
+print('Segundos totales:', h_m_s_a_seg(x, y, z), 'seg.')
+
+25. Usando las funciones del ejercicio anterior, escribir un programa que pida al
+usuario dos intervalos expresados en horas, minutos y segundos,
+sume sus duraciones, y muestre por pantalla la duración total en horas, minutos y segundos.
+
+def seg_a_h_m_s(segundos):
+    s = segundos
+    h = m = 0
+    while s >= 60:
+        if (s // 3600) > 0:
+            h += 1
+            s -= 3600
+            if s // 60 > 0:
+                m += 1
+                s -= 60
+        elif (s // 60) > 0:
+                m += 1
+                s -= 60
+    return h, m, s
+
+def h_m_s_a_seg(h, m, s):
+    segundos = h *3600 + m * 60 + s
+    return segundos
+
+class Intervalo():
+    h = 0
+    m = 0
+    s = 0
+
+    def pedir_intervalo(self):
+        self.h = int(input('Ingrese cantidad de horas: '))
+        self.m = int(input('Ingrese cantidad de minutos: '))
+        self.s = int(input('Ingrese cantidad de segundos: '))
+
+    def intervalo_seg(un_intervalo, otro_intervalo):
+        suma_de_intervalo = (un_intervalo.h + otro_intervalo.h) *3600 + (un_intervalo.m + otro_intervalo.m) * 60 + (un_intervalo.s + otro_intervalo.s)
+        return suma_de_intervalo
+
+int_1 = Intervalo()
+int_1.pedir_intervalo()
+int_2 = Intervalo()
+int_2.pedir_intervalo()
+intervalo = Intervalo.intervalo_seg(int_1, int_2)
+x, y, z = seg_a_h_m_s(intervalo)
+print('Duracion total en segundos:', intervalo, 'son --', f'Horas: {x}, Minutos: {y}, Segundos: {z}')
+
+26. Dado un año indicar si es bisiesto.
+Nota: un año es bisiesto si es un número divisible por 4
+pero no si es divisible por 100,excepto que también sea divisible por 400
+
+
+def es_bisiesto(anio):
+    if not anio % 4:
+        if anio % 100 or not anio % 400:
+            print('Es bisiesto')
+    else:
+        print('no es bisiesto')
+es_bisiesto(2072)
+
+27. MASTERMIND
+Cada vez que se empieza un partido, el programa debe “eligir” un número de cuatro cifras
+(sin cifras repetidas), que será el código que el jugador debe adivinar en la menor cantidad de
+intentos posibles. Cada intento consiste en una propuesta de un código posible que tipea el jugador,
+y una respuesta del programa. Las respuestas le darán pistas al jugador para que pueda deducir el código
+Estas pistas indican cuán cerca estuvo el número propuesto de la solución a través dedos valores:
+    la cantidad de aciertos es la cantidad de dígitos que propuso el jugador que también están en el código en la misma
+    posición. La cantidad de coincidencia es la cantidad de digitos que propuso el jugador que también están en el
+    código pero en una posición distinta
+
+import random
+
+def carga_string_no_vacio(num):
+    cadena = ''
+    while True:
+        try:
+            cadena = input('')
+            if len(cadena) <= num and cadena.isdigit():
+                return cadena
+            else:
+                print(f'ATENCIÓN: Debe ingresar un numero de {num} digitos')
+        except ValueError:
+            print(f'ATENCIÓN: Debe ingresar un numero de {num} digitos')
+
+
+def generacion_codigo(num):
+    print(f'Generando codigo de {num} digitos')
+    digitos = ('0','1','2','3','4','5','6','7','8','9')
+    codigo = ''
+    for i in range(num):
+        digito  = random.choice(digitos)
+        while digito in codigo:
+            digito  = random.choice(digitos)
+        codigo += digito
+    print(codigo)
+    return codigo       
+
+def comparacion(codigo, intento):
+    aciertos = coincidencias = 0
+    for c, p in zip(codigo, intento):
+        if c == p:
+            print(f'El numero {p} es un acierto')
+            aciertos += 1
+        elif p in codigo:
+            print(f'El numero {p} esta en el codigo secreto')
+            coincidencias += 1
+    print(f'Tu propuesta ({intento}) tiene {aciertos} aciertos y {coincidencias} coincidencias') 
+    if aciertos == len(codigo): return True
+
+def master_mind():
+    num = int(input('De cuantos numeros quiere adiviniar el codigo secreto?: '))
+    codigo = generacion_codigo(num)
+    intentos = 0
+    while True:
+        print(f'Ingrese intento (numero de {num} digitos) --escriba \'Fin\' para terminar')
+        intento = carga_string_no_vacio(num)
+        if intento.lower() == 'fin':
+            print(f'Mala suerte! El código era:{codigo}')
+            break
+        if comparacion(codigo, intento):
+            print(f'Felicitaciones, has adivinado en {intentos} intentos!!')
+            break
+        intentos += 1
+        
+master_mind()
+
+
+28. Escribir funciones que dada una cadena y un caracter:
+    a) Inserte el caracter entre cada letra de la cadena. Ej: 'separar' y ',' debería devolver
+    's,e,p,a,r,a,r'
+    b) Reemplace todos los espacios por el caracter. Ej: 'mi archivo de texto.txt' y '_'
+    debería devolver 'mi_archivo_de_texto.txt'
+    c) Reemplace todos los dígitos en la cadena por el caracter. Ej: 'su clave es: 1540' y
+    'X' debería devolver 'su clave es: XXXX'
+    d) Inserte el caracter cada 3 dígitos en la cadena. Ej. '2552552550' y '.' debería devolver
+    '255.255.255.0'
+
+
+29. Modificar las funciones anteriores, para que reciban un parámetro que indique
+la cantidad máxima de reemplazos o inserciones a realizar.
+
+
+
+30. Escribir una función que reciba una cadena que contiene un largo número entero
+y devuelva una cadena con el número y las separaciones de miles. Por ejemplo, si recibe
+'1234567890', debe devolver '1.234.567.890'.
+
+
+
+31. Escribir una función que dada una cadena de caracteres, devuelva:
+    a) La primera letra de cada palabra. Por ejemplo, si recibe 'Universal Serial Bus' debe
+    devolver 'USB'.
+    b) Dicha cadena con la primera letra de cada palabra en mayúsculas. Por ejemplo, si recibe
+    'república argentina' debe devolver 'República Argentina'.
+    a) Indique si la segunda cadena es una subcadena de la primera. Por ejemplo, 'cadena'
+    es una subcadena de 'subcadena'.
+    b) Devuelva la que sea anterior en orden alfábetico. Por ejemplo, si recibe 'kde' y 'gnome'
+    debe devolver 'gnome'.
+
 """
