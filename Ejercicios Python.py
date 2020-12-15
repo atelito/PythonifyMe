@@ -802,26 +802,111 @@ master_mind()
     d) Inserte el caracter cada 3 dígitos en la cadena. Ej. '2552552550' y '.' debería devolver
     '255.255.255.0'
 
+# a
+def separar_cadena_con_caracter(cadena, caracter):
+    cadena_separada = ''
+    for digito in cadena:
+        cadena_separada += (digito + caracter)
+    return cadena_separada
 
-29. Modificar las funciones anteriores, para que reciban un parámetro que indique
-la cantidad máxima de reemplazos o inserciones a realizar.
+print(separar_cadena_con_caracter('holamundo', '.'))
+cadena = 'holamundo'
+otra_cadena = '.'.join(cadena)
+print(otra_cadena)
 
+# b
+def reemplazar_espacios(cadena):
+    return cadena.replace(' ', '_')
 
+print(reemplazar_espacios('hola mundo como estas'))
 
-30. Escribir una función que reciba una cadena que contiene un largo número entero
-y devuelva una cadena con el número y las separaciones de miles. Por ejemplo, si recibe
-'1234567890', debe devolver '1.234.567.890'.
+# c
+def reemplazar_digito_por_caracter(cadena, caracter):
+    cadena_nueva = ''
+    for digit in cadena:
+        if not digit.isdigit():
+            cadena_nueva += digit
+        elif digit.isdigit():
+            cadena_nueva += digit.replace(digit, caracter)
+    return cadena_nueva
 
+def reemplazar_digito_por_caracter_facil(cadena, caracter):
+    for i in range(10):
+        cadena = cadena.replace(str(i), caracter)
+    return cadena
 
+print(reemplazar_digito_por_caracter(
+    'su numero de cuenta 12345678990 y clave es: 1540', "X"))
+print(reemplazar_digito_por_caracter_facil('su numero de cuenta 12345678990 y clave es: 1540', "X"))
 
-31. Escribir una función que dada una cadena de caracteres, devuelva:
+# d
+def insertar_digito(cadena, caracter):
+    cadena_nueva = ''
+    for i in range(len(cadena)):
+        if i != 0 and not i % 3:
+            cadena_nueva += caracter
+        cadena_nueva += cadena[i]
+
+    return cadena_nueva
+
+print(insertar_digito('2552552550', '.'))
+
+29. Escribir una función que dada una cadena de caracteres, devuelva otra cadena que:
     a) La primera letra de cada palabra. Por ejemplo, si recibe 'Universal Serial Bus' debe
     devolver 'USB'.
     b) Dicha cadena con la primera letra de cada palabra en mayúsculas. Por ejemplo, si recibe
     'república argentina' debe devolver 'República Argentina'.
-    a) Indique si la segunda cadena es una subcadena de la primera. Por ejemplo, 'cadena'
+    c) Indique si la segunda cadena es una subcadena de la primera. Por ejemplo, 'cadena'
     es una subcadena de 'subcadena'.
-    b) Devuelva la que sea anterior en orden alfábetico. Por ejemplo, si recibe 'kde' y 'gnome'
+    d) Devuelva la que sea anterior en orden alfábetico. Por ejemplo, si recibe 'kde' y 'gnome'
     debe devolver 'gnome'.
-
 """
+cadena = 'república argentina'
+# a
+
+# sin modificar la cadena
+
+
+def abreviar_cadena(cadena):
+    lista = cadena.split(' ')
+    for palabra in lista:
+        print(palabra[0].capitalize(), end='')
+
+
+abreviar_cadena(cadena)
+print('')
+# b
+
+
+def capitalizar(cadena):
+    nueva_cadena = ''
+    for i in range(len(cadena)):
+        if i == 0:
+            nueva_cadena += cadena[i].upper()
+        elif cadena[i-1] == ' ':
+            nueva_cadena += cadena[i].upper()
+        else:
+            nueva_cadena += cadena[i]
+    return nueva_cadena
+
+# sin modificar la cadena
+
+
+def capitalizar_otro(cadena):
+    lista_cadena = cadena.split(' ')
+    for palabra in lista_cadena:
+        print(palabra.capitalize(), end=' ')
+
+
+capitalizar_otro(cadena)
+print('')
+print(capitalizar(cadena))
+
+# c
+cadena_1 = 'hola mundo! buen dia argentina'
+cadena_2 = 'argentina'
+
+print('La subcadena se encuentra en la cadena' if cadena_2 in cadena_1 else 'La subcadena NO se encuentra en la cadena')
+
+# d
+print(cadena_1 if cadena_1 < cadena_2 else cadena_2)
