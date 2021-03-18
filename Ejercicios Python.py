@@ -860,7 +860,7 @@ print(insertar_digito('2552552550', '.'))
     es una subcadena de 'subcadena'.
     d) Devuelva la que sea anterior en orden alfábetico. Por ejemplo, si recibe 'kde' y 'gnome'
     debe devolver 'gnome'.
-"""
+
 cadena = 'república argentina'
 # a
 
@@ -910,3 +910,4 @@ print('La subcadena se encuentra en la cadena' if cadena_2 in cadena_1 else 'La 
 
 # d
 print(cadena_1 if cadena_1 < cadena_2 else cadena_2)
+"""
